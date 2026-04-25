@@ -69,14 +69,16 @@ export default buildConfig({
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
-    ...plugins,
-    vercelBlobStorage({
-      collections: {
-        [Media.slug]: true,
+  vercelBlobStorage({
+    collections: {
+      media: {
+        prefix: 'media',
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    }),
-  ],
+    },
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+  }),
+  ...plugins,
+],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
