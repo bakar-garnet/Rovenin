@@ -17,11 +17,20 @@ export const dynamic = 'force-dynamic'
 export default async function ResearchPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const { docs: posts } = await payload.find({
+  const { docs } = await payload.find({
     collection: 'posts',
-    sort: '-createdAt',
-    depth: 1,
+    where: {
+      _status: {
+        equals: 'published',
+      },
+    },
+    sort: '-publishedAt',
+    depth: 2,
     limit: 100,
+  })
+
+  const posts = docs.filter((post: any) => {
+    return Boolean(post?.title && post?.slug)
   })
 
   return (
@@ -45,6 +54,7 @@ export default async function ResearchPage() {
               <div key={post.id} className="flex flex-col items-start mb-12">
                 <div className="flex gap-5 justify-between text-sm tracking-wide text-textlight">
                   <div>{dateToShow ? formatDate(dateToShow) : ''}</div>
+
                   <div className="flex gap-2">
                     {post.categories?.map((cat: any, index: number) => (
                       <div key={index} className="text-textlight">
@@ -54,18 +64,12 @@ export default async function ResearchPage() {
                   </div>
                 </div>
 
-                {post.slug ? (
-                  <Link
-                    href={`/posts/${post.slug}`}
-                    className="mt-2 text-2xl tracking-wide text-custom hover:text-white transition-colors duration-300"
-                  >
-                    {post.title || 'Untitled post'}
-                  </Link>
-                ) : (
-                  <div className="mt-2 text-2xl tracking-wide text-custom">
-                    {post.title || 'Untitled post'}
-                  </div>
-                )}
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="mt-2 text-2xl tracking-wide text-custom hover:text-white transition-colors duration-300"
+                >
+                  {post.title}
+                </Link>
               </div>
             )
           })}
