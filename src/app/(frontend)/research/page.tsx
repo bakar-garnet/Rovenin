@@ -21,11 +21,6 @@ export default async function ResearchPage() {
     collection: 'posts',
     draft: true,
     overrideAccess: true,
-    where: {
-      _status: {
-        equals: 'published',
-      },
-    },
     sort: '-publishedAt',
     depth: 2,
     limit: 100,
