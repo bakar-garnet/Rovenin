@@ -22,6 +22,22 @@ export default {
     'bg-success/30',
     'border-warning',
     'bg-warning/30',
+    'text-5xl',
+    'text-4xl',
+    'text-3xl',
+    'text-2xl',
+    'text-xl',
+    'text-lg',
+    'mt-12',
+    'mt-10',
+    'mt-8',
+    'mt-6',
+    'mb-6',
+    'mb-5',
+    'mb-4',
+    'mb-3',
+    'leading-tight',
+    'font-semibold',
   ],
   theme: {
     container: {
@@ -103,13 +119,12 @@ export default {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
-            '--tw-prose-body': 'var(--text)',
-            '--tw-prose-headings': 'var(--text)',
-            h1: {
-              fontSize: '3.5rem',
-              fontWeight: 'normal',
-              marginBottom: '0.25em',
-            },
+            '--tw-prose-body': theme('colors.white'),
+            '--tw-prose-headings': theme('colors.white'),
+            '--tw-prose-links': theme('colors.custom'),
+            '--tw-prose-bold': theme('colors.white'),
+            '--tw-prose-quotes': theme('colors.custom'),
+            '--tw-prose-quote-borders': theme('colors.custom'),
           },
         },
         custom: {
@@ -129,25 +144,88 @@ export default {
             '--tw-prose-pre-bg': 'rgb(0 0 0 / 0.4)',
             '--tw-prose-th-borders': theme('colors.textlight'),
             '--tw-prose-td-borders': theme('colors.textlight'),
+
             maxWidth: '800px',
             fontSize: '1rem',
             lineHeight: '1.75',
+
             p: {
               marginTop: '1.25em',
               marginBottom: '1.25em',
             },
-            'h2, h3': {
+
+            h1: {
               fontFamily: theme('fontFamily.gilda'),
               color: theme('colors.white'),
+              fontSize: '3.5rem',
+              lineHeight: '1.1',
               fontWeight: 'normal',
+              marginTop: '1.5em',
+              marginBottom: '0.5em',
             },
+
+            h2: {
+              fontFamily: theme('fontFamily.gilda'),
+              color: theme('colors.white'),
+              fontSize: '2.25rem',
+              lineHeight: '1.2',
+              fontWeight: 'normal',
+              marginTop: '1.6em',
+              marginBottom: '0.6em',
+            },
+
+            h3: {
+              fontFamily: theme('fontFamily.gilda'),
+              color: theme('colors.white'),
+              fontSize: '1.75rem',
+              lineHeight: '1.3',
+              fontWeight: 'normal',
+              marginTop: '1.5em',
+              marginBottom: '0.5em',
+            },
+
+            h4: {
+              fontFamily: theme('fontFamily.gilda'),
+              color: theme('colors.white'),
+              fontSize: '1.35rem',
+              lineHeight: '1.35',
+              fontWeight: 'normal',
+              marginTop: '1.4em',
+              marginBottom: '0.45em',
+            },
+
+            blockquote: {
+              color: theme('colors.custom'),
+              borderLeftColor: theme('colors.custom'),
+              fontStyle: 'italic',
+            },
+
+            ul: {
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+              paddingLeft: '1.5em',
+            },
+
+            ol: {
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+              paddingLeft: '1.5em',
+            },
+
+            li: {
+              marginTop: '0.5em',
+              marginBottom: '0.5em',
+            },
+
             img: {
               borderRadius: '0.5rem',
             },
+
             figure: {
               marginTop: '2em',
               marginBottom: '2em',
             },
+
             'figure figcaption': {
               color: theme('colors.textlight'),
               fontSize: '0.875rem',
