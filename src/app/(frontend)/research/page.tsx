@@ -19,11 +19,6 @@ export default async function ResearchPage() {
 
   const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: {
-      _status: {
-        equals: 'published',
-      },
-    },
     sort: '-publishedAt',
     depth: 1,
     limit: 100,
