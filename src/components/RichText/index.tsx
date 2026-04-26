@@ -4,14 +4,19 @@ import { serializeLexical } from './serialize'
 
 interface RichTextProps {
   content: SerializedEditorState
+  className?: string
 }
 
-export const RichText: React.FC<RichTextProps> = ({ content }) => {
-  if (!content || !content.root || !content.root.children) {
+export const RichText: React.FC<RichTextProps> = ({ content, className }) => {
+  if (!content?.root?.children) {
     return null
   }
 
-  return <div className="rich-text">{serializeLexical({ nodes: content.root.children })}</div>
+  return (
+    <div className={className || 'rich-text'}>
+      {serializeLexical({ nodes: content.root.children })}
+    </div>
+  )
 }
 
 export default RichText

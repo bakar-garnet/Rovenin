@@ -111,23 +111,53 @@ export function serializeLexical({ nodes }: Props): React.ReactElement {
 
         if (node.type === 'heading') {
           const Tag = node.tag as keyof JSX.IntrinsicElements
-          return <Tag key={index}>{serializedChildren}</Tag>
+
+          const headingClasses: Record<string, string> = {
+            h1: 'mt-12 mb-6 text-5xl font-semibold leading-tight',
+            h2: 'mt-10 mb-5 text-3xl font-semibold leading-tight',
+            h3: 'mt-8 mb-4 text-2xl font-semibold leading-tight',
+            h4: 'mt-6 mb-3 text-xl font-semibold leading-tight',
+            h5: 'mt-5 mb-2 text-lg font-semibold leading-tight',
+            h6: 'mt-4 mb-2 text-base font-semibold leading-tight',
+          }
+
+          return (
+            <Tag key={index} className={headingClasses[node.tag || 'h2'] || headingClasses.h2}>
+              {serializedChildren}
+            </Tag>
+          )
         }
 
         switch (node.type) {
           case 'quote':
-            return <blockquote key={index}>{serializedChildren}</blockquote>
+            return (
+              <blockquote key={index} className="my-6 border-l-4 pl-4 italic opacity-80">
+                {serializedChildren}
+              </blockquote>
+            )
           case 'list':
             return node.tag === 'ol' ? (
-              <ol key={index}>{serializedChildren}</ol>
+              <ol key={index} className="my-5 list-decimal pl-6">
+                {serializedChildren}
+              </ol>
             ) : (
-              <ul key={index}>{serializedChildren}</ul>
+              <ul key={index} className="my-5 list-disc pl-6">
+                {serializedChildren}
+              </ul>
             )
           case 'listitem':
-            return <li key={index}>{serializedChildren}</li>
+            return (
+              <li key={index} className="mb-2 leading-relaxed">
+                {serializedChildren}
+              </li>
+            )
           case 'paragraph':
-            return <p key={index}>{serializedChildren}</p>
-          case 'link':
+            return (
+              <p key={index} className="mb-5 leading-relaxed">
+                {serializedChildren}
+              </p>
+            )
+          case 'link': {
             const fields = node.fields
             return (
               <CMSLink
@@ -140,6 +170,7 @@ export function serializeLexical({ nodes }: Props): React.ReactElement {
                 {serializedChildren}
               </CMSLink>
             )
+          }
           default:
             return null
         }

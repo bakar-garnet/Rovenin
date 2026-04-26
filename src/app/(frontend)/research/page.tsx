@@ -26,6 +26,7 @@ export default async function ResearchPage() {
     },
     sort: '-publishedAt',
     depth: 1,
+    limit: 100,
   })
 
   return (
