@@ -17,20 +17,11 @@ export const dynamic = 'force-dynamic'
 export default async function ResearchPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const { docs } = await payload.find({
+  const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: {
-      _status: {
-        equals: 'published',
-      },
-    },
-    sort: '-publishedAt',
+    sort: '-createdAt',
     depth: 2,
     limit: 100,
-  })
-
-  const posts = docs.filter((post: any) => {
-    return Boolean(post?.title && post?.slug)
   })
 
   return (
@@ -49,6 +40,8 @@ export default async function ResearchPage() {
         <div className="flex flex-col items-start flex-1 min-w-[400px] max-md:min-w-full">
           {posts.map((post: any) => {
             const dateToShow = post.publishedAt || post.createdAt
+            const titleToShow = post.title || post.meta?.title || post.slug || 'Untitled post'
+            const href = post.slug ? `/posts/${post.slug}` : `/posts/${post.id}`
 
             return (
               <div key={post.id} className="flex flex-col items-start mb-12">
@@ -65,10 +58,10 @@ export default async function ResearchPage() {
                 </div>
 
                 <Link
-                  href={`/posts/${post.slug}`}
+                  href={href}
                   className="mt-2 text-2xl tracking-wide text-custom hover:text-white transition-colors duration-300"
                 >
-                  {post.title}
+                  {titleToShow}
                 </Link>
               </div>
             )
